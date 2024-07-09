@@ -1,0 +1,27 @@
+name: myapp
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sabarmenanti
+      MYSQL_DATABASE: perpustakaan
+      MYSQL_USER: sabar
+      MYSQL_PASSWORD: menanti
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: sabar
+      PMA_PASSWORD: menanti
+    ports:
+      - "8080:80"
+    depends_on:
+        - mariadb
